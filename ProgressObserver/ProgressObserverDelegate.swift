@@ -8,11 +8,26 @@
 
 import Foundation
 
+/// Protocol for Progress Observer delegation routed from KVO
 public protocol ProgressObserverDelegate {
+    /**
+     Called when the `fractionCompleted` parameter is updated. It is called on the main queue.
+     
+     - parameter observer: The `ProgressObserver` object where the delegate method was triggered from.
+     - parameter fraction: The new value of `fractionCompleted`
+     - parameter userIngo: The `userInfo` parameter of the `ProgressObserver`
+     */
     func progressObserver(observer: ProgressObserver,
                           didUpdateFractionCompleted fraction: Double,
                           withUserInfo userInfo:[NSObject : AnyObject])
     
+    /**
+     Called when the `completedUnitCount` parameter is updated. It is called on the main queue.
+     
+     - parameter observer: The `ProgressObserver` object where the delegate method was triggered from.
+     - parameter fraction: The new value of `completedUnitCount`
+     - parameter userIngo: The `userInfo` parameter of the `ProgressObserver`
+     */
     func progressObserver(observer: ProgressObserver,
                           didUpdateCompletedUnitCount unitCount: Int64,
                           withUserInfo userInfo:[NSObject : AnyObject])

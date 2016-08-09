@@ -8,7 +8,12 @@
 
 import Foundation
 
+/// A simple `NSProgress` subclass that provides a clean delegate based interface to observing progress values.
 public class ProgressObserver: NSProgress {
+    
+    /**
+     The delegate for the progress observer. It should conform to the `ProgressObserverDelegate` protocol
+     */
     public var delegate: ProgressObserverDelegate? {
         didSet {
             if delegate == nil {
@@ -57,14 +62,18 @@ public class ProgressObserver: NSProgress {
         
         switch keyPath {
         case "fractionCompleted":
-            self.delegate?.progressObserver(self,
-                                            didUpdateFractionCompleted: fractionCompleted,
-                                            withUserInfo: userInfo)
+            mainQueue {
+                self.delegate?.progressObserver(self,
+                    didUpdateFractionCompleted: self.fractionCompleted,
+                    withUserInfo: self.userInfo)
+            }
             break
         case "completedUnitCount":
-            self.delegate?.progressObserver(self,
-                                            didUpdateCompletedUnitCount: completedUnitCount,
-                                            withUserInfo: userInfo)
+            mainQueue {
+                self.delegate?.progressObserver(self,
+                    didUpdateCompletedUnitCount: self.completedUnitCount,
+                    withUserInfo: self.userInfo)
+            }
             break
         default:
             break
@@ -74,4 +83,8 @@ public class ProgressObserver: NSProgress {
     deinit {
         stopObservingProgress()
     }
+}
+
+func mainQueue (closure: () -> ()) {
+    NSOperationQueue.mainQueue().addOperationWithBlock(closure)
 }
