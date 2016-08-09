@@ -26,6 +26,25 @@ public class ProgressObserver: NSProgress {
     }
     var isObserving = false
     
+    /**
+     Please refer to the `NSProgress` docs for this initialiser
+     */
+    convenience init(totalUnitCount unitCount: Int64) {
+        self.init(parent: nil, userInfo: nil)
+        totalUnitCount = unitCount
+    }
+    
+    /**
+     Please refer to the `NSProgress` docs for this initialiser
+     */
+    convenience init(totalUnitCount unitCount: Int64,
+                        parent: NSProgress,
+                        pendingUnitCount portionOfParentTotalUnitCount: Int64) {
+        self.init(parent: nil, userInfo: nil)
+        parent.addChild(self, withPendingUnitCount: portionOfParentTotalUnitCount)
+        totalUnitCount = unitCount
+    }
+        
     func startObservingProgress() {
         guard isObserving == false else {
             return
