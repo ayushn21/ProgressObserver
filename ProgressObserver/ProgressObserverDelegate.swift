@@ -8,6 +8,22 @@
 
 import Foundation
 
-protocol ProgressObserverDelegate {
+public protocol ProgressObserverDelegate {
+    func fractionCompletedUpdated(forObserver observer: ProgressObserver,
+                                              newValue: Double,
+                                              userInfo:[NSObject : AnyObject])
     
+    func completedUnitCountUpdated(forObserver observer: ProgressObserver,
+                                              newValue: Double,
+                                              userInfo:[NSObject : AnyObject])
+}
+
+public extension ProgressObserverDelegate {
+    func fractionCompletedUpdated(forObserver observer: ProgressObserver,
+                                              newValue: Double,
+                                              userInfo:[NSObject : AnyObject]) {}
+    
+    func completedUnitCountUpdated(forObserver observer: ProgressObserver,
+                                               newValue: Double,
+                                               userInfo:[NSObject : AnyObject]) {}
 }
