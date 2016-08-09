@@ -57,12 +57,14 @@ public class ProgressObserver: NSProgress {
         
         switch keyPath {
         case "fractionCompleted":
-            self.delegate?.fractionCompletedUpdated(forObserver: self,
-                                                    newValue: self.fractionCompleted, userInfo: self.userInfo)
+            self.delegate?.progressObserver(self,
+                                            didUpdateFractionCompleted: fractionCompleted,
+                                            withUserInfo: userInfo)
             break
         case "completedUnitCount":
-            self.delegate?.fractionCompletedUpdated(forObserver: self,
-                                                    newValue: self.fractionCompleted, userInfo: self.userInfo)
+            self.delegate?.progressObserver(self,
+                                            didUpdateCompletedUnitCount: completedUnitCount,
+                                            withUserInfo: userInfo)
             break
         default:
             break

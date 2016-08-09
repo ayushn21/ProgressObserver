@@ -9,21 +9,21 @@
 import Foundation
 
 public protocol ProgressObserverDelegate {
-    func fractionCompletedUpdated(forObserver observer: ProgressObserver,
-                                              newValue: Double,
-                                              userInfo:[NSObject : AnyObject])
+    func progressObserver(observer: ProgressObserver,
+                          didUpdateFractionCompleted fraction: Double,
+                          withUserInfo userInfo:[NSObject : AnyObject])
     
-    func completedUnitCountUpdated(forObserver observer: ProgressObserver,
-                                              newValue: Double,
-                                              userInfo:[NSObject : AnyObject])
+    func progressObserver(observer: ProgressObserver,
+                          didUpdateCompletedUnitCount unitCount: Int64,
+                          withUserInfo userInfo:[NSObject : AnyObject])
 }
 
 public extension ProgressObserverDelegate {
-    func fractionCompletedUpdated(forObserver observer: ProgressObserver,
-                                              newValue: Double,
-                                              userInfo:[NSObject : AnyObject]) {}
+    func progressObserver(observer: ProgressObserver,
+                          didUpdateFractionCompleted fraction: Double,
+                          withUserInfo userInfo:[NSObject : AnyObject]) {}
     
-    func completedUnitCountUpdated(forObserver observer: ProgressObserver,
-                                               newValue: Double,
-                                               userInfo:[NSObject : AnyObject]) {}
+    func progressObserver(observer: ProgressObserver,
+                          didUpdateCompletedUnitCount unitCount: Int64,
+                          withUserInfo userInfo:[NSObject : AnyObject]) {}
 }
