@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// Protocol for Progress Observer delegation routed from KVO
+/// Protocol for Progress Observer delegation routed from KVO. Both methods in this protocol are options as an extension provides a default blank implementation.
 public protocol ProgressObserverDelegate {
     /**
      Called when the `fractionCompleted` parameter is updated. It is called on the main queue.
