@@ -9,12 +9,12 @@
 import Foundation
 
 /// A simple `NSProgress` subclass that provides a clean delegate based interface to observing progress values.
-public class ProgressObserver: NSProgress {
+open class ProgressObserver: Progress {
     
     /**
      The delegate for the progress observer. It should conform to the `ProgressObserverDelegate` protocol
      */
-    public var delegate: ProgressObserverDelegate? {
+    open var delegate: ProgressObserverDelegate? {
         didSet {
             if delegate == nil {
                 stopObservingProgress()
@@ -38,7 +38,7 @@ public class ProgressObserver: NSProgress {
      Please refer to the `NSProgress` docs for this initialiser
      */
     convenience init(totalUnitCount unitCount: Int64,
-                        parent: NSProgress,
+                        parent: Progress,
                         pendingUnitCount portionOfParentTotalUnitCount: Int64) {
         self.init(parent: nil, userInfo: nil)
         parent.addChild(self, withPendingUnitCount: portionOfParentTotalUnitCount)
@@ -71,10 +71,10 @@ public class ProgressObserver: NSProgress {
         isObserving = false
     }
     
-    public override func observeValueForKeyPath(keyPath: String?,
-                                                ofObject object: AnyObject?,
-                                                change: [String : AnyObject]?,
-                                                context: UnsafeMutablePointer<Void>) {
+    open override func observeValue(forKeyPath keyPath: String?,
+                                                of object: Any?,
+                                                change: [NSKeyValueChangeKey : Any]?,
+                                                context: UnsafeMutableRawPointer?) {
         guard let keyPath = keyPath else {
             return
         }
@@ -104,6 +104,6 @@ public class ProgressObserver: NSProgress {
     }
 }
 
-func mainQueue (closure: () -> ()) {
-    NSOperationQueue.mainQueue().addOperationWithBlock(closure)
+func mainQueue (_ closure: @escaping () -> ()) {
+    OperationQueue.main.addOperation(closure)
 }

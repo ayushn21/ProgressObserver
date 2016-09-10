@@ -17,9 +17,9 @@ public protocol ProgressObserverDelegate {
      - parameter fraction: The new value of `fractionCompleted`
      - parameter userIngo: The `userInfo` parameter of the `ProgressObserver`
      */
-    func progressObserver(observer: ProgressObserver,
+    func progressObserver(_ observer: ProgressObserver,
                           didUpdateFractionCompleted fraction: Double,
-                          withUserInfo userInfo:[NSObject : AnyObject])
+                          withUserInfo userInfo:[AnyHashable: Any])
     
     /**
      Called when the `completedUnitCount` parameter is updated. It is called on the main queue.
@@ -28,17 +28,17 @@ public protocol ProgressObserverDelegate {
      - parameter fraction: The new value of `completedUnitCount`
      - parameter userIngo: The `userInfo` parameter of the `ProgressObserver`
      */
-    func progressObserver(observer: ProgressObserver,
+    func progressObserver(_ observer: ProgressObserver,
                           didUpdateCompletedUnitCount unitCount: Int64,
-                          withUserInfo userInfo:[NSObject : AnyObject])
+                          withUserInfo userInfo:[AnyHashable: Any])
 }
 
 public extension ProgressObserverDelegate {
-    func progressObserver(observer: ProgressObserver,
+    func progressObserver(_ observer: ProgressObserver,
                           didUpdateFractionCompleted fraction: Double,
-                          withUserInfo userInfo:[NSObject : AnyObject]) {}
+                          withUserInfo userInfo:[AnyHashable: Any]) {}
     
-    func progressObserver(observer: ProgressObserver,
+    func progressObserver(_ observer: ProgressObserver,
                           didUpdateCompletedUnitCount unitCount: Int64,
-                          withUserInfo userInfo:[NSObject : AnyObject]) {}
+                          withUserInfo userInfo:[AnyHashable: Any]) {}
 }

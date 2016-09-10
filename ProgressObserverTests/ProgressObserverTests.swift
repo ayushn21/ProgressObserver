@@ -61,7 +61,7 @@ class ProgressObserverTests: XCTestCase {
     }
     
     func testFractionCompletedNotification() {
-        let expectation = expectationWithDescription("The fractionCompleted notification should be triggered")
+        let expectation = self.expectation(description: "The fractionCompleted notification should be triggered")
         
         class MockDelegate: ProgressObserverDelegate {
             let expectation: XCTestExpectation
@@ -70,9 +70,9 @@ class ProgressObserverTests: XCTestCase {
                 self.expectation = expectation
             }
             
-            func progressObserver(observer: ProgressObserver,
+            func progressObserver(_ observer: ProgressObserver,
                                           didUpdateFractionCompleted fraction: Double,
-                                          withUserInfo userInfo: [NSObject : AnyObject]) {
+                                          withUserInfo userInfo: [AnyHashable: Any]) {
                 if fraction == 0.25 { expectation.fulfill() }
             }
         }
@@ -80,13 +80,13 @@ class ProgressObserverTests: XCTestCase {
         progressObserver.delegate = MockDelegate(expectation: expectation)
         progressObserver.completedUnitCount = 25
         
-        waitForExpectationsWithTimeout(5) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssertNil(error, "The fractionCompleted notification was not triggered")
         }
     }
     
     func testCompletedUnitNotification() {
-        let expectation = expectationWithDescription("The completedUnitCount notification should be triggered")
+        let expectation = self.expectation(description: "The completedUnitCount notification should be triggered")
         
         class MockDelegate: ProgressObserverDelegate {
             let expectation: XCTestExpectation
@@ -95,9 +95,9 @@ class ProgressObserverTests: XCTestCase {
                 self.expectation = expectation
             }
             
-            func progressObserver(observer: ProgressObserver,
+            func progressObserver(_ observer: ProgressObserver,
                                   didUpdateCompletedUnitCount unitCount: Int64,
-                                  withUserInfo userInfo: [NSObject : AnyObject]) {
+                                  withUserInfo userInfo: [AnyHashable: Any]) {
                 if unitCount == 25 { expectation.fulfill() }
             }
         }
@@ -105,7 +105,7 @@ class ProgressObserverTests: XCTestCase {
         progressObserver.delegate = MockDelegate(expectation: expectation)
         progressObserver.completedUnitCount = 25
         
-        waitForExpectationsWithTimeout(5) { error in
+        waitForExpectations(timeout: 5) { error in
             XCTAssertNil(error, "The completedUnitCount notification was not triggered")
         }
     }
